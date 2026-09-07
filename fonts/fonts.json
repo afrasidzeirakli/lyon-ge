@@ -1,0 +1,31 @@
+{
+  "note": "ამ ფაილში აღწერილია fonts/ საქაღალდის ფონტები @font-face-ისთვის. scripts/sync-assets.mjs ამას კითხულობს. აქ არაღწერილი ფაილებისთვის სახელიდან გამოიცნობა წონა/სტილი.",
+  "source": "Google Fonts (fonts.google.com), SIL Open Font License 1.1 — იხ. OFL-GoogleSans.txt და OFL-GoogleSansFlex.txt",
+  "faces": [
+    {
+      "file": "GoogleSans[GRAD,wght].woff2",
+      "family": "Google Sans",
+      "style": "normal",
+      "weight": "400 700",
+      "axes": "GRAD -50..200, wght 400..700 (opsz დაფიქსირებულია 18-ზე)",
+      "subset": "latin, latin-ext, georgian (მხედრული + მთავრული), ₾"
+    },
+    {
+      "file": "GoogleSans-Italic[GRAD,wght].woff2",
+      "family": "Google Sans",
+      "style": "italic",
+      "weight": "400 700",
+      "axes": "GRAD -50..200, wght 400..700",
+      "subset": "latin, latin-ext, georgian"
+    },
+    {
+      "file": "GoogleSansFlex[GRAD,wdth,wght].woff2",
+      "family": "Google Sans Flex",
+      "style": "normal",
+      "weight": "100 1000",
+      "stretch": "25% 151%",
+      "axes": "GRAD 0..100, wdth 25..151, wght 100..1000 (ROND/slnt/opsz დაფიქსირებულია)",
+      "subset": "latin, latin-ext (ქართული არ აქვს — სათაურებში ქართული ასოები Google Sans-იდან მოდის)"
+    }
+  ]
+}
