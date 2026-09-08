@@ -2,7 +2,7 @@
 
 ორიგინალი ბრენდული ფეხსაცმლის მაღაზიის საიტი (ქართული / English) და მისი მართვის პანელი.
 
-**ცოცხალი ვერსია:** https://lyon-ge.vercel.app · ადმინი: https://lyon-ge.vercel.app/admin
+**ცოცხალი ვერსია:** https://lyon.ge · ადმინი: https://lyon.ge/admin
 
 **სტეკი:** Next.js 16 (App Router, Turbopack) · React 19 · TypeScript · Tailwind CSS 4 · Prisma 6 (SQLite ლოკალურად / Postgres Vercel-ზე) · Google Sans
 
@@ -22,7 +22,7 @@ npm run dev       # http://localhost:3000
 | `http://localhost:3000/en` | საიტი ინგლისურად |
 | `http://localhost:3000/admin` | ადმინ პანელი |
 
-**ადმინის საწყისი მონაცემები:** მომხმარებელი `admin`, პაროლი `lyon1234` (იცვლება `.env`-ში seed-ამდე, ან ადმინ პანელში: პარამეტრები → ადმინის პაროლი). **პირველივე შესვლისას შეცვალე.**
+**ადმინის საწყისი მონაცემები:** მომხმარებელი `admin`. პაროლი აიღება `.env`-ის `ADMIN_PASSWORD`-იდან; თუ ის ცარიელია, seed-ი შემთხვევით პაროლს დააგენერირებს და ერთხელ დაბეჭდავს ტერმინალში. შეცვლა ადმინ პანელიდან: პარამეტრები → ადმინის პაროლი.
 
 ---
 
@@ -94,13 +94,14 @@ fonts/, brand/              შენი ფონტები და ლოგ�
 
 ## დეპლოი — Vercel (მიმდინარე)
 
-საიტი უკვე დეპლოიდია: **https://lyon-ge.vercel.app**
+საიტი უკვე დეპლოიდია: **https://lyon.ge** (Vercel-ის მისამართი: https://lyon-ge.vercel.app)
 
 | რესურსი | რა არის |
 | --- | --- |
 | Vercel პროექტი | `lyon-ge`, დაკავშირებულია GitHub-ის რეპოზიტორიასთან |
 | ბაზა | **Neon Postgres** (უფასო გეგმა, Frankfurt) — `DATABASE_URL` Vercel-ს თავად აქვს დამატებული |
 | ფოტოები | **Vercel Blob** (`lyon-media`) — `BLOB_READ_WRITE_TOKEN` ავტომატურად ემატება |
+| დომენი | **lyon.ge** (რეგისტრატორი domenebi.ge) — ნეიმსერვერები `ns1.vercel-dns.com` / `ns2.vercel-dns.com`, DNS-ს Vercel მართავს. `www.lyon.ge` გადამისამართებულია `lyon.ge`-ზე, SSL — Let's Encrypt, ავტომატური განახლებით |
 
 `main`-ში ყოველი push ავტომატურად ახალ დეპლოის ქმნის. ხელით: `vercel deploy --prod`.
 
