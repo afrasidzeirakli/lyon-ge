@@ -13,6 +13,17 @@ const nextConfig: NextConfig = {
     // Vercel-ზე serverless ფუნქციის რექვესთის ლიმიტი ~4.5MB-ია
     serverActions: { bodySizeLimit: process.env.VERCEL ? "4mb" : "25mb" },
   },
+  // www.lyon.ge -> lyon.ge (ერთი კანონიკური მისამართი საძიებო სისტემებისთვის)
+  async redirects() {
+    return [
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.lyon.ge" }],
+        destination: "https://lyon.ge/:path*",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
