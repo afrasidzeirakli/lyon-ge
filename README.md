@@ -2,7 +2,9 @@
 
 ორიგინალი ბრენდული ფეხსაცმლის მაღაზიის საიტი (ქართული / English) და მისი მართვის პანელი.
 
-**სტეკი:** Next.js 16 (App Router, Turbopack) · React 19 · TypeScript · Tailwind CSS 4 · Prisma 6 + SQLite · Google Sans
+**ცოცხალი ვერსია:** https://lyon-ge.vercel.app · ადმინი: https://lyon-ge.vercel.app/admin
+
+**სტეკი:** Next.js 16 (App Router, Turbopack) · React 19 · TypeScript · Tailwind CSS 4 · Prisma 6 (SQLite ლოკალურად / Postgres Vercel-ზე) · Google Sans
 
 ---
 
@@ -89,6 +91,34 @@ src/components/admin/       ადმინის კომპონენტე
 public/uploads/             ატვირთული ფოტოები (ბექაპი გაუკეთე!)
 fonts/, brand/              შენი ფონტები და ლოგო (drop-in)
 ```
+
+## დეპლოი — Vercel (მიმდინარე)
+
+საიტი უკვე დეპლოიდია: **https://lyon-ge.vercel.app**
+
+| რესურსი | რა არის |
+| --- | --- |
+| Vercel პროექტი | `lyon-ge`, დაკავშირებულია GitHub-ის რეპოზიტორიასთან |
+| ბაზა | **Neon Postgres** (უფასო გეგმა, Frankfurt) — `DATABASE_URL` Vercel-ს თავად აქვს დამატებული |
+| ფოტოები | **Vercel Blob** (`lyon-media`) — `BLOB_READ_WRITE_TOKEN` ავტომატურად ემატება |
+
+`main`-ში ყოველი push ავტომატურად ახალ დეპლოის ქმნის. ხელით: `vercel deploy --prod`.
+
+**როგორ მუშაობს ორივე გარემო ერთი კოდიდან:**
+
+- `scripts/prisma-schema.mjs` `DATABASE_URL`-ის მიხედვით `prisma/schema.prisma`-ში ცვლის provider-ს:
+  `file:./dev.db` → `sqlite`, `postgres://…` → `postgresql`. გაშვება ავტომატურია (`postinstall`, `predev`, `prebuild`).
+- ფოტოები: თუ `BLOB_READ_WRITE_TOKEN` არსებობს — Vercel Blob-ში, თუ არა — `public/uploads/`-ში.
+- ძებნა Postgres-ზე რეგისტრს არ არჩევს (`mode: "insensitive"`), SQLite-ზე კი ისედაც.
+
+**ბაზის განახლება სქემის შეცვლის შემდეგ** (ლოკალურიდან Neon-ზე):
+
+```bash
+vercel env pull .env.neon --environment=production
+DATABASE_URL="<DATABASE_URL_UNPOOLED .env.neon-იდან>" npm run db:push
+```
+
+> Vercel-ზე ფაილური სისტემა მხოლოდ წასაკითხია და ატვირთვის ლიმიტი ~4.5MB-ია — ფოტოები ავტომატურად Blob-ში მიდის.
 
 ## დეპლოი (VPS / საკუთარი სერვერი)
 
