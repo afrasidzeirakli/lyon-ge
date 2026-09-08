@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Search } from "lucide-react";
 import type { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/db";
+import { contains } from "@/lib/dbFeatures";
 import { formatPrice } from "@/lib/money";
 import { ORDER_STATUSES } from "@/i18n/dictionaries";
 import { EmptyState, PageHeader, StatusBadge, formatDate } from "@/components/admin/ui";
@@ -20,7 +21,7 @@ export default async function OrdersPage({ searchParams }: Props) {
 
   const where: Prisma.OrderWhereInput = {};
   if (status !== "all") where.status = status;
-  if (q) where.OR = [{ number: { contains: q } }, { customerName: { contains: q } }, { phone: { contains: q } }];
+  if (q) where.OR = [{ number: contains(q) }, { customerName: contains(q) }, { phone: contains(q) }];
 
   const [orders, counts] = await Promise.all([
     prisma.order.findMany({ where, orderBy: { createdAt: "desc" }, include: { items: { select: { qty: true } } }, take: 300 }),

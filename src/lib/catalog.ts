@@ -2,6 +2,7 @@ import "server-only";
 import { cache } from "react";
 import type { Prisma } from "@prisma/client";
 import { prisma } from "./db";
+import { contains } from "./dbFeatures";
 import { computePrice, getLivePromotions, type PriceInfo } from "./pricing";
 
 export const productInclude = {
@@ -54,11 +55,11 @@ export async function getShopProducts(filters: ShopFilters): Promise<ProductWith
     const q = filters.q.trim();
     and.push({
       OR: [
-        { nameKa: { contains: q } },
-        { nameEn: { contains: q } },
-        { brand: { name: { contains: q } } },
-        { descriptionKa: { contains: q } },
-        { descriptionEn: { contains: q } },
+        { nameKa: contains(q) },
+        { nameEn: contains(q) },
+        { brand: { name: contains(q) } },
+        { descriptionKa: contains(q) },
+        { descriptionEn: contains(q) },
       ],
     });
   }

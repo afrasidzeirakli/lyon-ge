@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Plus, Search } from "lucide-react";
 import type { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/db";
+import { contains } from "@/lib/dbFeatures";
 import { formatPrice } from "@/lib/money";
 import { toggleProductActive } from "@/lib/admin/actions/products";
 import { EmptyState, PageHeader } from "@/components/admin/ui";
@@ -18,7 +19,7 @@ export default async function ProductsPage({ searchParams }: Props) {
   const filter = typeof sp.filter === "string" ? sp.filter : "all";
 
   const where: Prisma.ProductWhereInput = {};
-  if (q) where.OR = [{ nameKa: { contains: q } }, { nameEn: { contains: q } }, { slug: { contains: q } }, { brand: { name: { contains: q } } }];
+  if (q) where.OR = [{ nameKa: contains(q) }, { nameEn: contains(q) }, { slug: contains(q) }, { brand: { name: contains(q) } }];
   if (filter === "active") where.isActive = true;
   if (filter === "inactive") where.isActive = false;
   if (filter === "lowstock") where.sizes = { some: { stock: { lte: 2 } } };

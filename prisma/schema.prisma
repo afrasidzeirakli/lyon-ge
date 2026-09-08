@@ -1,5 +1,11 @@
-// LYON - ფეხსაცმლის მაღაზიის მონაცემთა ბაზა (SQLite)
+// LYON - ფეხსაცმლის მაღაზიის მონაცემთა ბაზა
 // ფასები ინახება თეთრებში (1 ლარი = 100), მთელი რიცხვებით.
+//
+// datasource-ის provider ავტომატურად ირჩევა DATABASE_URL-ის მიხედვით
+// (scripts/prisma-schema.mjs, გაშვება: postinstall / predev / prebuild):
+//   file:./dev.db  -> sqlite       (ლოკალური და VPS)
+//   postgres://…   -> postgresql   (Vercel + Neon)
+// ხელით შეცვლა საჭირო არ არის.
 
 generator client {
   provider = "prisma-client-js"

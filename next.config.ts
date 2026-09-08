@@ -2,11 +2,16 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    remotePatterns: [{ protocol: "https", hostname: "images.unsplash.com" }],
+    remotePatterns: [
+      { protocol: "https", hostname: "images.unsplash.com" },
+      // Vercel Blob — ადმინიდან ატვირთული ფოტოები Vercel-ზე
+      { protocol: "https", hostname: "*.public.blob.vercel-storage.com" },
+    ],
     formats: ["image/avif", "image/webp"],
   },
   experimental: {
-    serverActions: { bodySizeLimit: "25mb" },
+    // Vercel-ზე serverless ფუნქციის რექვესთის ლიმიტი ~4.5MB-ია
+    serverActions: { bodySizeLimit: process.env.VERCEL ? "4mb" : "25mb" },
   },
 };
 
