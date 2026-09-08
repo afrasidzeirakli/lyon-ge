@@ -61,3 +61,6 @@ next-env.d.ts
 # Vercel / ინტეგრაციების ლოკალური ფაილები
 .agents/
 skills-lock.json
+
+# Neon/Vercel ინტეგრაციის სკილები (ლოკალური)
+.claude/skills/
